@@ -16,8 +16,8 @@ public:
     Gen() {}
 
     void setFilePath() { // ensures file paths are correct
-        m_cppFilePath = m_dirName + "/" + m_fileName + ".cpp";
-        m_headerFilePath = m_dirName + "/main.h";
+        m_cppFilePath = m_dirName + "/src/" + m_fileName + ".cpp";
+        m_headerFilePath = m_dirName + "/include/main.h";
     }
 
     void setDirName(const std::string_view& dirName) {
@@ -37,14 +37,12 @@ public:
     }
 
     void createDirectory();
-
-    void createFile(bool withHeader);
-
+    void createFile(bool);
     void createHeader();
-
-    void writeFile(const std::string& filePath, const std::string& content);
-
-    void help(const std::string& name);
+    void createCMake();
+    void createStructure(bool);
+    void writeFile(const std::string&, const std::string&);
+    void help(const std::string&);
 };
 
 #endif /* GENERATOR_H */

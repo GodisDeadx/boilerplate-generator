@@ -4,12 +4,34 @@
 #include <filesystem>
 #include <unordered_map>
 
-#include "../includes/generator.h"
+#include "../include/generator.h"
+#include "../include/sleep.h"
+
+void Gen::createCMake() {
+    std::string file = m_dirName + "/CMakeLists.txt";
+    std::string content = "cmake_minimum_required(VERSION 3.10)\nproject(" + getDirName() + " CXX)\n\n# Add source files to the project\nadd_executable(" + getFileName() + " ./src/main.cpp)";
+    writeFile(file, content);
+    std::cout << "CMakeLists.txt Created!\n";
+}
+
+void Gen::createStructure(bool withHeader) {
+    std::string dirname = m_dirName;
+    std::string src_dirname = m_dirName + "/src";
+    std::string inc_dirname = m_dirName + "/include";
+    // Create src/ directory
+    setDirName(src_dirname);
+    createDirectory();
+    // Create include/ directory
+    if (withHeader) {
+        setDirName(inc_dirname);
+        createDirectory();
+    }
+}
 
 void Gen::createDirectory() {
     if (!std::filesystem::exists(m_dirName)) {
         if (std::filesystem::create_directory(m_dirName)) {
-            std::cout << m_dirName << " Created!\n";
+            sleep::milliseconds(100);
         } else {
             std::cout << m_dirName << " Could Not Be Created!\n";
             exit(1);
@@ -25,18 +47,21 @@ void Gen::createFile(bool withHeader) {
 
     if (withHeader) {
         fileContent = "#include <iostream>\n#include \"main.h\"\n\n" + fileContent;
-        createHeader();
     } else {
         fileContent = "#include <iostream>\n\n" + fileContent;
     }
 
     writeFile(m_cppFilePath, fileContent);
     std::cout << m_cppFilePath << " Created!\n";
+    if(withHeader){
+        createHeader();
+    }
 }
 
 void Gen::createHeader() {
     std::string fileContent = "#pragma once\n\n";
     writeFile(m_headerFilePath, fileContent);
+    std::cout << m_headerFilePath << " Created!\n";
 }
 
 void Gen::writeFile(const std::string& filePath, const std::string& content) {
@@ -110,11 +135,15 @@ int main(int argc, char** argv) {
             std::cout << "Creating C++ Project!\n";
             std::cout << "Header File Creation Disabled!\n\n";
             gen.createDirectory();
+            gen.createCMake();
+            gen.createStructure(false);
             gen.createFile(false);
             break;
         case Mode::Cpp:
             std::cout << "Creating " << gen.getFileName() << " Project!\n\n";
             gen.createDirectory();
+            gen.createCMake();
+            gen.createStructure(true);
             gen.createFile(true);
             break;
         default:
