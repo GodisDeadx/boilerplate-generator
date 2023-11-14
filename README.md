@@ -26,8 +26,8 @@ This project is a simple C++ project generator tool that facilitates the creatio
 
 1. **Clone the Repository:**
 ```bash
-   git clone <repository_url>
-   cd <repository_directory>
+   git clone https://github.com/GodisDeadx/boilerplate-generator.git
+   cd boilerplate-gen
 ```
 2. **Create a Build Directory:**
 ```bash
@@ -42,5 +42,9 @@ This project is a simple C++ project generator tool that facilitates the creatio
 
 4. **Run The Executable:**
 ```bash
-    ./project_generator <FLAGS> -dir <DIRNAME>
+    ./gen <FLAGS> -dir <DIRNAME>
 ```
+- Optional
+```bash
+   sudo mv gen /bin/gen
+``` 
