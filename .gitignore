@@ -1,6 +1,10 @@
 # Prerequisites
 *.d
 
+# Custon
+build/
+backup/
+
 # Compiled Object files
 *.slo
 *.lo
