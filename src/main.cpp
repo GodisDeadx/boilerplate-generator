@@ -49,8 +49,7 @@ void Gen::help(const std::string& name) {
     std::cout << "Usage: " << name << " <FLAGS> -dir <DIRNAME>\n"
               << "Flags:\n"
               << "-h, --help\t\tDisplay This Message\n"
-              << "-cpp\t\t\tCreate a C++ Project\n"
-              << "-nh, --no-header\tCreate a C++ Project Without The Header File. Must Be Used With -cpp\n"
+              << "-nh, --no-header\tCreate a C++ Project Without The Header File.\n"
               << "-dir <DIRNAME>\t\tCreate a Directory With The Specified Name\n"
               << "-fn <FILENAME>\t\tSpecify a Name For The File\n"
               << "-f <FILENAME>\t\tCreate a C++ File In Current Directory\n";
@@ -67,7 +66,6 @@ enum class Mode {
 
 const std::unordered_map<std::string, Mode> modeMap {
 
-    {"-cpp", Mode::Cpp},
     {"-nh", Mode::CppNoHeader},
     {"--no-header", Mode::CppNoHeader},
 
@@ -76,7 +74,7 @@ const std::unordered_map<std::string, Mode> modeMap {
 int main(int argc, char** argv) {
 
     std::string fileName{ "main" }, dirName{"error"};
-    Mode mode = Mode::Invalid;
+    Mode mode = Mode::Cpp;
     Gen gen;
 
     if (argc < 2 || std::string(argv[1]) == "-h" || std::string(argv[1]) == "--help") {
@@ -115,7 +113,7 @@ int main(int argc, char** argv) {
             gen.createFile(false);
             break;
         case Mode::Cpp:
-            std::cout << "Creating C++ Project!\n\n";
+            std::cout << "Creating " << gen.getFileName() << " Project!\n\n";
             gen.createDirectory();
             gen.createFile(true);
             break;
