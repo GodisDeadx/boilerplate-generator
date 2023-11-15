@@ -71,11 +71,11 @@ void Gen::writeFile(const std::string& filePath, const std::string& content) {
 }
 
 void Gen::help(const std::string& name) {
-    std::cout << "Usage: " << name << " <FLAGS> -dir <DIRNAME>\n"
+    std::cout << "Usage: " << name << " <FLAGS> -n <DIRNAME>\n"
               << "Flags:\n"
               << "-h, --help\t\tDisplay This Message\n"
               << "-nh, --no-header\tCreate a C++ Project Without The Header File.\n"
-              << "-dir <DIRNAME>\t\tCreate a Directory With The Specified Name\n"
+              << "-n <DIRNAME>\t\tCreate a Directory With The Specified Name\n"
               << "-fn <FILENAME>\t\tSpecify a Name For The File\n"
               << "-f <FILENAME>\t\tCreate a C++ File In Current Directory\n";
     exit(0);
@@ -108,7 +108,7 @@ int main(int argc, char** argv) {
 
     for (int j = 1; j < argc; ++j) {
         std::string arg = argv[j];
-        if (arg == "-dir") {
+        if (arg == "-n") {
             gen.setDirName(argv[j + 1]);
             dirName = argv[j + 1];
         } else if (arg == "-fn") {
