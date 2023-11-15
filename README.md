@@ -17,7 +17,7 @@ This project is a simple C++ project generator tool that facilitates the creatio
 
 - `-h`, `--help`: Display the help message.
 - `-nh`, `--no-header`: Create a C++ project without the header file.
-- `-n <DIRNAME>`: Create a directory with the specified name.
+- `-n <DIRNAME>`: Create a project with the specified name.
 - `-fn <FILENAME>`: Specify a name for the file.
 - `-f <FILENAME>`: Create a C++ file in the current directory.
 
